@@ -31,9 +31,13 @@
 
 <section class="block"><div class="container">
   <div class="sec-head"><span class="tag">Contact</span><h2>견적 · 문의</h2>
-    <p>아래 양식을 작성하시면 메일 작성 창이 열립니다. 또는 <a href="mailto:goodnature@goodnature.uk" style="color:var(--green-d)">goodnature@goodnature.uk</a> 로 직접 문의해 주세요.</p>
+    <p>양식을 작성하고 전송하시면 담당자 이메일로 바로 접수됩니다. 또는 <a href="mailto:goodnature@goodnature.uk" style="color:var(--green-d)">goodnature@goodnature.uk</a> 로 직접 문의해 주세요.</p>
   </div>
-  <form class="form" id="inquiry" onsubmit="return sendInquiry(event)">
+  <form class="form" id="inquiry" action="https://formsubmit.co/goodnature@goodnature.uk" method="POST" onsubmit="return gateSubmit(event)">
+    <input type="hidden" name="_subject" value="[GoodNature 홈페이지 문의]">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://goodnature.uk/thanks/">
     <div class="row">
       <div><label>회사/성명 *</label><input name="name" required></div>
       <div><label>연락처 *</label><input name="phone" required placeholder="010-0000-0000"></div>
@@ -53,8 +57,8 @@
     <div><label>처리 대상 / 물량 (선택)</label><input name="scope" placeholder="예: 축분 월 20톤 / 음식물류폐기물 등"></div>
     <div><label>문의 내용 *</label><textarea name="msg" rows="5" required></textarea></div>
     <div style="display:flex;justify-content:center"><div class="cf-turnstile" data-sitekey="0x4AAAAAADuWG3-qMIANGLwN" data-theme="light"></div></div>
-    <button class="btn btn-primary" type="submit">문의 보내기</button>
-    <p class="note">※ 보안 확인(Cloudflare) 후 전송 버튼을 누르면 작성하신 내용이 담긴 메일 작성 창이 열립니다.</p>
+    <button class="btn btn-primary" id="sendBtn" type="submit">문의 보내기</button>
+    <p class="note">※ 보안 확인(Cloudflare) 후 전송하시면 담당자 이메일로 바로 접수됩니다.</p>
   </form>
 </div></section>
 
@@ -90,14 +94,15 @@
 <script src="/nav.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
-function sendInquiry(e){
-  e.preventDefault();
+function gateSubmit(e){
   var f=e.target;
-  var token = (window.turnstile && turnstile.getResponse()) || (f.querySelector('[name="cf-turnstile-response"]')||{}).value || "";
-  if(!token){ alert("보안 확인(사람인지 검증)을 완료한 뒤 다시 눌러 주세요."); return false; }
-  var body="[문의 유형] "+f.type.value+"\n[회사/성명] "+f.name.value+"\n[연락처] "+f.phone.value+"\n[이메일] "+(f.email.value||"-")+"\n[처리 대상/물량] "+(f.scope.value||"-")+"\n\n[문의 내용]\n"+f.msg.value;
-  window.location.href="mailto:goodnature@goodnature.uk?subject="+encodeURIComponent("[홈페이지 문의] "+f.name.value)+"&body="+encodeURIComponent(body);
-  return false;
+  var el=f.querySelector('[name="cf-turnstile-response"]');
+  var token=(window.turnstile&&turnstile.getResponse())||(el&&el.value)||"";
+  if(!token){ e.preventDefault(); alert("보안 확인(사람인지 검증)을 완료한 뒤 다시 눌러 주세요."); return false; }
+  if(el) el.disabled=true; // 이메일에 토큰 텍스트 안 담기게
+  var b=document.getElementById('sendBtn');
+  if(b){ b.classList.add('loading'); b.innerHTML='<span class="spinner"></span>전송 중...'; }
+  return true; // FormSubmit으로 실제 POST 전송
 }
 </script>
 </body>
