@@ -52,8 +52,9 @@
     </div>
     <div><label>처리 대상 / 물량 (선택)</label><input name="scope" placeholder="예: 축분 월 20톤 / 음식물류폐기물 등"></div>
     <div><label>문의 내용 *</label><textarea name="msg" rows="5" required></textarea></div>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAADuWG3-qMIANGLwN" data-theme="light"></div>
     <button class="btn btn-primary" type="submit">문의 보내기</button>
-    <p class="note">※ 전송 버튼을 누르면 작성하신 내용이 담긴 메일 작성 창이 열립니다.</p>
+    <p class="note">※ 보안 확인(Cloudflare) 후 전송 버튼을 누르면 작성하신 내용이 담긴 메일 작성 창이 열립니다.</p>
   </form>
 </div></section>
 
@@ -87,10 +88,13 @@
   </div>
 </div></footer>
 <script src="nav.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
 function sendInquiry(e){
   e.preventDefault();
   var f=e.target;
+  var token = (window.turnstile && turnstile.getResponse()) || (f.querySelector('[name="cf-turnstile-response"]')||{}).value || "";
+  if(!token){ alert("보안 확인(사람인지 검증)을 완료한 뒤 다시 눌러 주세요."); return false; }
   var body="[문의 유형] "+f.type.value+"\n[회사/성명] "+f.name.value+"\n[연락처] "+f.phone.value+"\n[이메일] "+(f.email.value||"-")+"\n[처리 대상/물량] "+(f.scope.value||"-")+"\n\n[문의 내용]\n"+f.msg.value;
   window.location.href="mailto:goodnature@goodnature.uk?subject="+encodeURIComponent("[홈페이지 문의] "+f.name.value)+"&body="+encodeURIComponent(body);
   return false;
