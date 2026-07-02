@@ -1,0 +1,146 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+:root{
+  --green:#2f9e41; --green-d:#237a32; --green-l:#eaf6ec;
+  --blue:#1670c8; --blue-d:#0f56a0;
+  --ink:#1c2b22; --body:#3d4a43; --muted:#7a897f;
+  --line:#e6ece7; --bg:#ffffff; --bg2:#f5f9f5;
+  --maxw:1160px; --radius:14px;
+  --shadow:0 10px 30px rgba(20,60,30,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Pretendard","Malgun Gothic",sans-serif;color:var(--body);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.center{text-align:center}
+
+/* ---- header ---- */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.header-inner{max-width:var(--maxw);margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;color:var(--ink);letter-spacing:-.5px}
+.brand img{width:40px;height:40px}
+.main-nav{display:flex;gap:6px}
+.main-nav a{padding:10px 16px;border-radius:9px;font-weight:600;color:var(--ink);font-size:16px;transition:.15s}
+.main-nav a:hover,.main-nav a.active{background:var(--green-l);color:var(--green-d)}
+.nav-toggle{display:none;background:none;border:0;font-size:26px;color:var(--ink);cursor:pointer}
+
+/* ---- buttons ---- */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:999px;font-weight:700;font-size:16px;transition:.18s;border:2px solid transparent;cursor:pointer}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-d)}
+.btn-ghost{background:#fff;color:var(--green-d);border-color:var(--green)}
+.btn-ghost:hover{background:var(--green-l)}
+
+/* ---- hero (home) ---- */
+.hero{position:relative;min-height:600px;display:flex;align-items:center;color:#fff;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(120deg,rgba(15,86,40,.86),rgba(22,112,200,.72)),url('images/facility-jeju.jpg') center/cover;transform:scale(1.02)}
+.hero .container{position:relative;padding-top:60px;padding-bottom:60px}
+.hero .eyebrow{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:7px 16px;border-radius:999px;font-weight:600;font-size:14px;margin-bottom:22px}
+.hero h1{font-size:clamp(30px,5vw,52px);font-weight:800;line-height:1.25;letter-spacing:-1px;color:#fff}
+.hero p.lead{margin-top:20px;font-size:clamp(16px,2.4vw,20px);max-width:640px;color:rgba(255,255,255,.92)}
+.hero-actions{margin-top:34px;display:flex;gap:12px;flex-wrap:wrap}
+.hero .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}
+.hero .btn-ghost:hover{background:rgba(255,255,255,.14)}
+
+/* ---- page hero (sub pages) ---- */
+.page-hero{background:linear-gradient(120deg,var(--green-d),var(--blue-d));color:#fff;padding:70px 0 60px}
+.page-hero .crumb{font-size:14px;opacity:.85;margin-bottom:10px}
+.page-hero h1{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-1px;color:#fff}
+.page-hero p{margin-top:12px;max-width:680px;opacity:.92}
+
+/* ---- sections ---- */
+section.block{padding:76px 0}
+section.block.alt{background:var(--bg2)}
+.sec-head{max-width:720px;margin:0 auto 46px;text-align:center}
+.sec-head .tag{color:var(--green);font-weight:700;letter-spacing:1px;font-size:14px;text-transform:uppercase}
+.sec-head h2{font-size:clamp(26px,3.6vw,38px);font-weight:800;color:var(--ink);letter-spacing:-1px;margin-top:8px}
+.sec-head p{margin-top:14px;color:var(--muted);font-size:17px}
+
+/* ---- grids/cards ---- */
+.grid{display:grid;gap:24px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow)}
+.card .ic{width:52px;height:52px;border-radius:12px;background:var(--green-l);color:var(--green-d);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;margin-bottom:16px}
+.card h3{font-size:20px;color:var(--ink);font-weight:700;margin-bottom:8px}
+.card p{color:var(--body);font-size:15.5px}
+
+/* ---- split (image + text) ---- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.split img{border-radius:var(--radius);box-shadow:var(--shadow);width:100%}
+.split h2{font-size:clamp(24px,3.2vw,34px);color:var(--ink);font-weight:800;letter-spacing:-.5px;margin-bottom:16px}
+.split .tag{color:var(--green);font-weight:700;font-size:14px;letter-spacing:1px}
+.split ul{margin-top:18px;list-style:none;display:grid;gap:12px}
+.split ul li{padding-left:30px;position:relative;color:var(--body)}
+.split ul li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:800}
+
+/* ---- award banner ---- */
+.award{background:linear-gradient(120deg,#237a32,#1670c8);color:#fff;border-radius:var(--radius);padding:36px 40px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center;text-align:center}
+.award .medal{font-size:46px}
+.award b{font-size:22px;display:block}
+.award span{opacity:.9}
+
+/* ---- process diagram ---- */
+.figure{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
+.figure figcaption{margin-top:14px;color:var(--muted);font-size:14px;text-align:center}
+.reaction{background:var(--green-l);border-radius:10px;padding:14px 18px;text-align:center;color:var(--green-d);font-weight:700;margin-top:18px;font-size:15px}
+
+/* ---- spec table ---- */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
+table.spec{width:100%;border-collapse:collapse;font-size:15px;background:#fff}
+table.spec th,table.spec td{padding:13px 16px;border-bottom:1px solid var(--line);text-align:center}
+table.spec thead th{background:var(--green-d);color:#fff;font-weight:700}
+table.spec tbody tr:nth-child(even){background:var(--bg2)}
+table.spec td.left{text-align:left}
+.badge-ok{color:var(--green-d);font-weight:700}
+
+/* ---- form ---- */
+.form{display:grid;gap:16px;max-width:720px;margin:0 auto}
+.form .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form label{font-weight:600;color:var(--ink);font-size:14px;display:block;margin-bottom:6px}
+.form input,.form textarea,.form select{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff}
+.form input:focus,.form textarea:focus{outline:2px solid var(--green)}
+.note{color:var(--muted);font-size:13px}
+
+/* ---- faq ---- */
+.faq details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px 20px;margin-bottom:12px}
+.faq summary{cursor:pointer;font-weight:700;color:var(--ink);padding:14px 0;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"Q  ";color:var(--green);font-weight:800}
+.faq details[open] summary{color:var(--green-d)}
+.faq .a{padding:0 0 16px;color:var(--body)}
+
+/* ---- info list (about/contact) ---- */
+.dl{display:grid;grid-template-columns:150px 1fr;gap:14px 20px}
+.dl dt{font-weight:700;color:var(--ink)}
+.dl dd{color:var(--body)}
+
+/* ---- CTA strip ---- */
+.cta{background:var(--green);color:#fff;text-align:center;padding:60px 0}
+.cta h2{font-size:clamp(24px,3.4vw,34px);font-weight:800;color:#fff}
+.cta p{margin-top:12px;opacity:.92;font-size:17px}
+.cta .btn{margin-top:26px;background:#fff;color:var(--green-d)}
+
+/* ---- footer ---- */
+.site-footer{background:#16241c;color:#c7d4cb;padding:48px 0 30px;font-size:14px}
+.footer-inner{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.f-brand{display:flex;align-items:center;gap:12px}
+.f-brand img{width:44px;height:44px;background:#fff;border-radius:8px;padding:3px}
+.f-brand b{color:#fff;font-size:18px}
+.f-info{line-height:1.9}
+.f-info a{color:#8fd39a}
+.f-info .copy{margin-top:12px;color:#7c8b81;font-size:13px}
+
+/* ---- responsive ---- */
+@media(max-width:860px){
+  .main-nav{position:fixed;inset:72px 0 auto 0;background:#fff;flex-direction:column;gap:0;border-bottom:1px solid var(--line);padding:8px 16px 16px;display:none;box-shadow:var(--shadow)}
+  .main-nav.open{display:flex}
+  .main-nav a{padding:14px 12px;border-radius:8px}
+  .nav-toggle{display:block}
+  .g2,.g3,.g4,.split,.form .row{grid-template-columns:1fr}
+  .split{gap:28px}
+  .dl{grid-template-columns:110px 1fr}
+}
