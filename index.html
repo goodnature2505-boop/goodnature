@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoodNature</title>
+<meta name="description" content="주식회사 굿네이쳐 — 홈페이지 준비 중입니다.">
+<style>
+  :root{ --bg1:#0f2a1e; --bg2:#1c4d34; --accent:#7bd389; --text:#eaf5ee; --muted:#a9c9b6; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; }
+  body{
+    font-family:"Segoe UI","Apple SD Gothic Neo",Roboto,"Malgun Gothic",sans-serif;
+    color:var(--text);
+    background:linear-gradient(135deg,var(--bg1),var(--bg2));
+    background-size:200% 200%;
+    animation:grad 16s ease infinite;
+    display:flex; align-items:center; justify-content:center;
+    min-height:100vh; padding:24px; text-align:center;
+  }
+  @keyframes grad{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+  .card{ max-width:560px; }
+  .logo{
+    font-size:clamp(38px,9vw,72px); font-weight:800; letter-spacing:-1px;
+    display:inline-flex; align-items:center; gap:.35em;
+  }
+  .logo .leaf{ color:var(--accent); }
+  .tag{ margin-top:14px; font-size:clamp(15px,3.5vw,19px); color:var(--muted); font-weight:500; }
+  .divider{ width:56px; height:3px; background:var(--accent); border-radius:2px; margin:28px auto; opacity:.8; }
+  .status{ font-size:clamp(16px,4vw,22px); font-weight:600; }
+  .sub{ margin-top:10px; font-size:14px; color:var(--muted); }
+  .contact{ margin-top:32px; font-size:14px; color:var(--muted); }
+  .contact a{ color:var(--accent); text-decoration:none; }
+  .contact a:hover{ text-decoration:underline; }
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="logo"><span class="leaf">🌿</span>GoodNature</div>
+    <div class="tag">주식회사 굿네이쳐</div>
+    <div class="divider"></div>
+    <div class="status">홈페이지를 준비하고 있습니다</div>
+    <div class="sub">더 나은 모습으로 곧 찾아뵙겠습니다.</div>
+    <div class="contact">문의 · <a href="mailto:goodnature2505@gmail.com">goodnature2505@gmail.com</a></div>
+  </main>
+</body>
+</html>
