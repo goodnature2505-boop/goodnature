@@ -13,17 +13,13 @@
     font-family:"Segoe UI","Apple SD Gothic Neo",Roboto,"Malgun Gothic",sans-serif;
     color:var(--text);
     background:linear-gradient(135deg,var(--bg1),var(--bg2));
-    background-size:200% 200%;
-    animation:grad 16s ease infinite;
-    display:flex; align-items:center; justify-content:center;
-    min-height:100vh; padding:24px; text-align:center;
+    background-size:200% 200%; animation:grad 16s ease infinite;
+    display:flex; flex-direction:column; min-height:100vh;
   }
   @keyframes grad{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+  .hero{ flex:1; display:flex; align-items:center; justify-content:center; padding:24px; text-align:center; }
   .card{ max-width:560px; }
-  .logo{
-    font-size:clamp(38px,9vw,72px); font-weight:800; letter-spacing:-1px;
-    display:inline-flex; align-items:center; gap:.35em;
-  }
+  .logo{ font-size:clamp(38px,9vw,72px); font-weight:800; letter-spacing:-1px; display:inline-flex; align-items:center; gap:.35em; }
   .logo .leaf{ color:var(--accent); }
   .tag{ margin-top:14px; font-size:clamp(15px,3.5vw,19px); color:var(--muted); font-weight:500; }
   .divider{ width:56px; height:3px; background:var(--accent); border-radius:2px; margin:28px auto; opacity:.8; }
@@ -32,16 +28,29 @@
   .contact{ margin-top:32px; font-size:14px; color:var(--muted); }
   .contact a{ color:var(--accent); text-decoration:none; }
   .contact a:hover{ text-decoration:underline; }
+  footer{ border-top:1px solid rgba(255,255,255,.08); padding:20px 24px; font-size:12px; line-height:1.75; color:var(--muted); text-align:center; }
+  footer a{ color:var(--muted); text-decoration:none; }
+  footer a:hover{ text-decoration:underline; }
+  footer .sep{ opacity:.4; margin:0 7px; }
+  footer .copy{ margin-top:6px; opacity:.55; }
 </style>
 </head>
 <body>
-  <main class="card">
-    <div class="logo"><span class="leaf">🌿</span>GoodNature</div>
-    <div class="tag">주식회사 굿네이쳐</div>
-    <div class="divider"></div>
-    <div class="status">홈페이지를 준비하고 있습니다</div>
-    <div class="sub">더 나은 모습으로 곧 찾아뵙겠습니다.</div>
-    <div class="contact">문의 · <a href="mailto:goodnature@goodnature.uk">goodnature@goodnature.uk</a></div>
+  <main class="hero">
+    <div class="card">
+      <div class="logo"><span class="leaf">🌿</span>GoodNature</div>
+      <div class="tag">주식회사 굿네이쳐</div>
+      <div class="divider"></div>
+      <div class="status">홈페이지를 준비하고 있습니다</div>
+      <div class="sub">더 나은 모습으로 곧 찾아뵙겠습니다.</div>
+      <div class="contact">문의 · <a href="mailto:goodnature@goodnature.uk">goodnature@goodnature.uk</a></div>
+    </div>
   </main>
+  <footer>
+    <div>주식회사 굿네이쳐<span class="sep">|</span>대표 신재영<span class="sep">|</span>사업자등록번호 554-86-04017</div>
+    <div>경상북도 상주시 이안면 양범안룡길 64-6</div>
+    <div>개인정보보호책임자 박재형<span class="sep">|</span><a href="mailto:goodnature@goodnature.uk">goodnature@goodnature.uk</a></div>
+    <div class="copy">© 2026 GoodNature Inc.</div>
+  </footer>
 </body>
 </html>
