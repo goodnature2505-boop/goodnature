@@ -48,7 +48,16 @@
     if (b) { e.preventDefault(); setLang(b.getAttribute('data-lang')); }
   });
 
+  // Default = the visitor's browser/OS language: Korean only if it starts
+  // with "ko"; everything else falls back to English. A saved choice wins.
   var saved = null;
   try { saved = localStorage.getItem(KEY); } catch (e) {}
-  setLang(saved === 'en' ? 'en' : 'ko');
+  var lang;
+  if (saved === 'en' || saved === 'ko') {
+    lang = saved;
+  } else {
+    var nav = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    lang = nav.indexOf('ko') === 0 ? 'ko' : 'en';
+  }
+  setLang(lang);
 })();

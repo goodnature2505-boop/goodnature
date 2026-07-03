@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>try{if(localStorage.getItem('gn_lang')==='en')document.documentElement.lang='en'}catch(e){}</script>
+<script>try{var s=localStorage.getItem('gn_lang');if(s==='en'||(!s&&(navigator.language||'').toLowerCase().indexOf('ko')!==0))document.documentElement.lang='en'}catch(e){}</script>
 <title>고객지원 | GoodNature</title>
 <meta name="description" content="견적 문의, 카탈로그 다운로드, 자주 묻는 질문 — GoodNature 고객지원.">
 <link rel="icon" href="/images/logo.png">
