@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-title-en="Support | GoodNature" data-desc-en="Quote requests, catalog downloads, and FAQ — GoodNature customer support.">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>try{if(localStorage.getItem('gn_lang')==='en')document.documentElement.lang='en'}catch(e){}</script>
 <title>고객지원 | GoodNature</title>
 <meta name="description" content="견적 문의, 카탈로그 다운로드, 자주 묻는 질문 — GoodNature 고객지원.">
 <link rel="icon" href="/images/logo.png">
@@ -12,26 +13,30 @@
 <header class="site-header"><div class="header-inner">
   <a class="brand" href="/"><img src="/images/logo.png" alt="GoodNature 로고"><span>GoodNature</span></a>
   <nav class="main-nav">
-    <a href="/about/">회사소개</a>
-    <a href="/products/">제품소개</a>
-    <a href="/process/">생산·공정</a>
-    <a href="/applications/">적용분야</a>
-    <a href="/certifications/">인증·보도</a>
-    <a href="/support/" class="active">고객지원</a>
-    <a href="/location/">오시는 길</a>
+    <a href="/about/"><span lang="ko">회사소개</span><span lang="en">About</span></a>
+    <a href="/products/"><span lang="ko">제품소개</span><span lang="en">Products</span></a>
+    <a href="/process/"><span lang="ko">생산·공정</span><span lang="en">Process</span></a>
+    <a href="/applications/"><span lang="ko">적용분야</span><span lang="en">Applications</span></a>
+    <a href="/certifications/"><span lang="ko">인증·보도</span><span lang="en">Certifications</span></a>
+    <a href="/support/" class="active"><span lang="ko">고객지원</span><span lang="en">Support</span></a>
+    <a href="/location/"><span lang="ko">오시는 길</span><span lang="en">Location</span></a>
   </nav>
+  <div class="lang-switch" role="group" aria-label="Language">
+    <button type="button" data-lang="ko" class="active">한국어</button>
+    <button type="button" data-lang="en">EN</button>
+  </div>
   <button class="nav-toggle" aria-label="메뉴 열기">☰</button>
 </div></header>
 
 <section class="page-hero"><div class="container">
-  <div class="crumb">HOME · 고객지원</div>
-  <h1>고객지원</h1>
-  <p>궁금한 점을 남겨주시면 신속·정직하게 답변드리겠습니다.</p>
+  <div class="crumb"><span lang="ko">HOME · 고객지원</span><span lang="en">HOME · Support</span></div>
+  <h1><span lang="ko">고객지원</span><span lang="en">Support</span></h1>
+  <p><span lang="ko">궁금한 점을 남겨주시면 신속·정직하게 답변드리겠습니다.</span><span lang="en">Leave us your questions and we'll respond promptly and honestly.</span></p>
 </div></section>
 
 <section class="block"><div class="container">
-  <div class="sec-head"><span class="tag">Contact</span><h2>견적 · 문의</h2>
-    <p>양식을 작성하고 전송하시면 담당자 이메일로 바로 접수됩니다. 또는 <a href="mailto:goodnature@goodnature.uk" style="color:var(--green-d)">goodnature@goodnature.uk</a> 로 직접 문의해 주세요.</p>
+  <div class="sec-head"><span class="tag">Contact</span><h2><span lang="ko">견적 · 문의</span><span lang="en">Quote · Inquiry</span></h2>
+    <p><span lang="ko">양식을 작성하고 전송하시면 담당자 이메일로 바로 접수됩니다. 또는 <a href="mailto:goodnature@goodnature.uk" style="color:var(--green-d)">goodnature@goodnature.uk</a> 로 직접 문의해 주세요.</span><span lang="en">Fill out and submit the form and it goes straight to our team's inbox. Or contact us directly at <a href="mailto:goodnature@goodnature.uk" style="color:var(--green-d)">goodnature@goodnature.uk</a>.</span></p>
   </div>
   <form class="form" id="inquiry" action="https://formsubmit.co/goodnature@goodnature.uk" method="POST" onsubmit="return gateSubmit(event)">
     <input type="hidden" name="_subject" value="[GoodNature 홈페이지 문의]">
@@ -39,58 +44,60 @@
     <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_next" value="https://goodnature.uk/thanks/">
     <div class="row">
-      <div><label>회사/성명 *</label><input name="name" required></div>
-      <div><label>연락처 *</label><input name="phone" required placeholder="010-0000-0000"></div>
+      <div><label><span lang="ko">회사/성명 *</span><span lang="en">Company / Name *</span></label><input name="name" required></div>
+      <div><label><span lang="ko">연락처 *</span><span lang="en">Phone *</span></label><input name="phone" required placeholder="010-0000-0000"></div>
     </div>
     <div class="row">
-      <div><label>이메일</label><input name="email" type="email" placeholder="you@example.com"></div>
-      <div><label>문의 유형</label>
+      <div><label><span lang="ko">이메일</span><span lang="en">Email</span></label><input name="email" type="email" placeholder="you@example.com"></div>
+      <div><label><span lang="ko">문의 유형</span><span lang="en">Inquiry Type</span></label>
         <select name="type">
-          <option>견적 문의</option>
-          <option>유기성 부산물 처리 상담</option>
-          <option>탄산칼슘비료 구매</option>
-          <option>시설·기술 제휴</option>
-          <option>기타</option>
+          <option data-en="Quote request">견적 문의</option>
+          <option data-en="Organic by-product treatment consultation">유기성 부산물 처리 상담</option>
+          <option data-en="Purchase calcium carbonate fertilizer">탄산칼슘비료 구매</option>
+          <option data-en="Facility / technology partnership">시설·기술 제휴</option>
+          <option data-en="Other">기타</option>
         </select>
       </div>
     </div>
-    <div><label>처리 대상 / 물량 (선택)</label><input name="scope" placeholder="예: 축분 월 20톤 / 음식물류폐기물 등"></div>
-    <div><label>문의 내용 *</label><textarea name="msg" rows="5" required></textarea></div>
+    <div><label><span lang="ko">처리 대상 / 물량 (선택)</span><span lang="en">Material / Volume (optional)</span></label><input name="scope" placeholder="예: 축분 월 20톤 / 음식물류폐기물 등" data-ph-en="e.g. 20 tons/month of livestock manure, food waste, etc."></div>
+    <div><label><span lang="ko">문의 내용 *</span><span lang="en">Message *</span></label><textarea name="msg" rows="5" required></textarea></div>
     <div style="display:flex;justify-content:center"><div class="cf-turnstile" data-sitekey="0x4AAAAAADuWG3-qMIANGLwN" data-theme="light"></div></div>
-    <button class="btn btn-primary" id="sendBtn" type="submit">문의 보내기</button>
-    <p class="note">※ 보안 확인(Cloudflare) 후 전송하시면 담당자 이메일로 바로 접수됩니다.</p>
+    <button class="btn btn-primary" id="sendBtn" type="submit"><span lang="ko">문의 보내기</span><span lang="en">Send Inquiry</span></button>
+    <p class="note"><span lang="ko">※ 보안 확인(Cloudflare) 후 전송하시면 담당자 이메일로 바로 접수됩니다.</span><span lang="en">※ After the security check (Cloudflare), your message is sent directly to our team's inbox.</span></p>
   </form>
 </div></section>
 
 <section class="block alt"><div class="container">
   <div class="grid g2">
-    <div class="card"><div class="ic">📥</div><h3>카탈로그 다운로드</h3><p>제품·공정 소개 카탈로그(PDF)를 준비 중입니다. 필요하신 경우 문의 주시면 메일로 보내드립니다.</p>
-      <a class="btn btn-ghost" href="mailto:goodnature@goodnature.uk?subject=카탈로그%20요청" style="margin-top:14px">카탈로그 요청</a></div>
-    <div class="card"><div class="ic">📞</div><h3>연락처</h3>
-      <p>이메일 : <a href="mailto:goodnature@goodnature.uk" style="color:var(--green-d)">goodnature@goodnature.uk</a><br>
-      주소 : 경상북도 상주시 이안면 양범안룡길 64-6</p></div>
+    <div class="card"><div class="ic">📥</div><h3><span lang="ko">카탈로그 다운로드</span><span lang="en">Catalog Download</span></h3><p><span lang="ko">제품·공정 소개 카탈로그(PDF)를 준비 중입니다. 필요하신 경우 문의 주시면 메일로 보내드립니다.</span><span lang="en">A product &amp; process catalog (PDF) is in preparation. Contact us and we'll email it to you.</span></p>
+      <a class="btn btn-ghost" href="mailto:goodnature@goodnature.uk?subject=카탈로그%20요청" style="margin-top:14px"><span lang="ko">카탈로그 요청</span><span lang="en">Request Catalog</span></a></div>
+    <div class="card"><div class="ic">📞</div><h3><span lang="ko">연락처</span><span lang="en">Contact</span></h3>
+      <p><span lang="ko">이메일 : <a href="mailto:goodnature@goodnature.uk" style="color:var(--green-d)">goodnature@goodnature.uk</a><br>
+      주소 : 경상북도 상주시 이안면 양범안룡길 64-6</span><span lang="en">Email: <a href="mailto:goodnature@goodnature.uk" style="color:var(--green-d)">goodnature@goodnature.uk</a><br>
+      Address: 64-6 Yangbeomanryong-gil, Ian-myeon, Sangju-si, Gyeongsangbuk-do, Korea</span></p></div>
   </div>
 </div></section>
 
 <section class="block"><div class="container" style="max-width:820px">
-  <div class="sec-head"><span class="tag">FAQ</span><h2>자주 묻는 질문</h2></div>
+  <div class="sec-head"><span class="tag">FAQ</span><h2><span lang="ko">자주 묻는 질문</span><span lang="en">Frequently Asked Questions</span></h2></div>
   <div class="faq">
-    <details><summary>어떤 유기성 부산물을 처리할 수 있나요?</summary><div class="a">축분(가축분뇨), 음식물류폐기물, 파래 등 해조류, 감귤피 등 다양한 유기성 부산물을 처리합니다. 대상에 따라 사전 상담이 필요할 수 있습니다.</div></details>
-    <details><summary>탄산칼슘비료는 어떤 효과가 있나요?</summary><div class="a">산성 토양의 pH를 중화하는 토양개량 효과와 함께, 작물 생육에 필요한 칼슘·미네랄을 공급합니다.</div></details>
-    <details><summary>견적은 어떻게 받을 수 있나요?</summary><div class="a">위 견적·문의 양식에 처리 대상과 물량을 남겨주시거나 이메일로 문의하시면, 조건에 맞춰 상담·견적을 안내해 드립니다.</div></details>
-    <details><summary>처리 최소 물량이나 지역 제한이 있나요?</summary><div class="a">처리 대상·물량·지역에 따라 조건이 달라집니다. 자세한 사항은 문의를 통해 안내해 드립니다.</div></details>
+    <details><summary><span lang="ko">어떤 유기성 부산물을 처리할 수 있나요?</span><span lang="en">Which organic by-products can you process?</span></summary><div class="a"><span lang="ko">축분(가축분뇨), 음식물류폐기물, 파래 등 해조류, 감귤피 등 다양한 유기성 부산물을 처리합니다. 대상에 따라 사전 상담이 필요할 수 있습니다.</span><span lang="en">We process a wide range of organic by-products including livestock manure, food waste, seaweed such as green laver, and citrus peel. Prior consultation may be needed depending on the material.</span></div></details>
+    <details><summary><span lang="ko">탄산칼슘비료는 어떤 효과가 있나요?</span><span lang="en">What are the benefits of calcium carbonate fertilizer?</span></summary><div class="a"><span lang="ko">산성 토양의 pH를 중화하는 토양개량 효과와 함께, 작물 생육에 필요한 칼슘·미네랄을 공급합니다.</span><span lang="en">It neutralizes the pH of acidic soil to improve it, while supplying the calcium and minerals crops need to grow.</span></div></details>
+    <details><summary><span lang="ko">견적은 어떻게 받을 수 있나요?</span><span lang="en">How can I get a quote?</span></summary><div class="a"><span lang="ko">위 견적·문의 양식에 처리 대상과 물량을 남겨주시거나 이메일로 문의하시면, 조건에 맞춰 상담·견적을 안내해 드립니다.</span><span lang="en">Leave your material type and volume in the form above or email us, and we'll provide a consultation and quote tailored to your conditions.</span></div></details>
+    <details><summary><span lang="ko">처리 최소 물량이나 지역 제한이 있나요?</span><span lang="en">Is there a minimum volume or regional restriction?</span></summary><div class="a"><span lang="ko">처리 대상·물량·지역에 따라 조건이 달라집니다. 자세한 사항은 문의를 통해 안내해 드립니다.</span><span lang="en">Conditions vary by material, volume, and region. Please contact us for details.</span></div></details>
   </div>
 </div></section>
 
 <footer class="site-footer"><div class="container footer-inner">
-  <div class="f-brand"><img src="/images/logo.png" alt="GoodNature"><div><b>주식회사 굿네이쳐</b><br>유기성 부산물 자원화 · 탄산칼슘비료</div></div>
+  <div class="f-brand"><img src="/images/logo.png" alt="GoodNature"><div><b>주식회사 굿네이쳐</b><br><span lang="ko">유기성 부산물 자원화 · 탄산칼슘비료</span><span lang="en">Organic By-product Recycling · Calcium Carbonate Fertilizer</span></div></div>
   <div class="f-info">
-    상호 주식회사 굿네이쳐 &nbsp;|&nbsp; 대표 신재영 &nbsp;|&nbsp; 사업자등록번호 554-86-04017<br>
-    경상북도 상주시 이안면 양범안룡길 64-6<br>
-    개인정보보호책임자 박재형 &nbsp;|&nbsp; <a href="mailto:goodnature@goodnature.uk">goodnature@goodnature.uk</a>
+    <span lang="ko">상호 주식회사 굿네이쳐 &nbsp;|&nbsp; 대표 신재영 &nbsp;|&nbsp; 사업자등록번호 554-86-04017</span><span lang="en">Company GoodNature Inc. &nbsp;|&nbsp; CEO Shin Jae-young &nbsp;|&nbsp; Business Reg. No. 554-86-04017</span><br>
+    <span lang="ko">경상북도 상주시 이안면 양범안룡길 64-6</span><span lang="en">64-6 Yangbeomanryong-gil, Ian-myeon, Sangju-si, Gyeongsangbuk-do, Korea</span><br>
+    <span lang="ko">개인정보보호책임자 박재형</span><span lang="en">Privacy Officer Park Jae-hyung</span> &nbsp;|&nbsp; <a href="mailto:goodnature@goodnature.uk">goodnature@goodnature.uk</a>
     <div class="copy">© 2026 GoodNature Inc. All rights reserved.</div>
   </div>
 </div></footer>
+<script src="/i18n.js"></script>
 <script src="/nav.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
@@ -98,10 +105,10 @@ function gateSubmit(e){
   var f=e.target;
   var el=f.querySelector('[name="cf-turnstile-response"]');
   var token=(window.turnstile&&turnstile.getResponse())||(el&&el.value)||"";
-  if(!token){ e.preventDefault(); alert("보안 확인(사람인지 검증)을 완료한 뒤 다시 눌러 주세요."); return false; }
+  if(!token){ e.preventDefault(); alert(document.documentElement.lang==='en'?"Please complete the security check (human verification), then click again.":"보안 확인(사람인지 검증)을 완료한 뒤 다시 눌러 주세요."); return false; }
   if(el) el.disabled=true; // 이메일에 토큰 텍스트 안 담기게
   var b=document.getElementById('sendBtn');
-  if(b){ b.classList.add('loading'); b.innerHTML='<span class="spinner"></span>전송 중...'; }
+  if(b){ b.classList.add('loading'); b.innerHTML=document.documentElement.lang==='en'?'<span class="spinner"></span>Sending...':'<span class="spinner"></span>전송 중...'; }
   return true; // FormSubmit으로 실제 POST 전송
 }
 </script>
