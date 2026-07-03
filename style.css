@@ -96,6 +96,25 @@ section.block.alt{background:var(--bg2)}
 .figure figcaption{margin-top:14px;color:var(--muted);font-size:14px;text-align:center}
 .reaction{background:var(--green-l);border-radius:10px;padding:14px 18px;text-align:center;color:var(--green-d);font-weight:700;margin-top:18px;font-size:15px}
 
+/* ---- process flow diagram (HTML, bilingual) ---- */
+.pflow{display:flex;flex-direction:column;align-items:center}
+.pflow-scrubber{display:inline-flex;align-items:center;gap:12px;max-width:660px;background:linear-gradient(120deg,var(--green-d),var(--blue-d));color:#fff;border-radius:999px;padding:13px 26px;font-weight:600;font-size:15px;box-shadow:var(--shadow);justify-content:center;text-align:center}
+.pflow-scrubber .ico{font-size:22px;flex:0 0 auto}
+.pflow-scrubber b{color:#fff}
+.pflow-feed{color:var(--green);font-size:24px;line-height:1;margin:8px 0 16px}
+.pflow-steps{display:flex;align-items:stretch;justify-content:center;gap:10px;flex-wrap:wrap;width:100%}
+.pflow-step{flex:1 1 0;min-width:148px;max-width:230px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 14px;display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center}
+.pflow-step.key{background:linear-gradient(165deg,var(--green-l),#fff);border-color:var(--green)}
+.pflow-step .n{font-size:12px;font-weight:800;letter-spacing:1px;color:var(--green-d);background:var(--green-l);border-radius:999px;padding:3px 11px}
+.pflow-step .ico{font-size:30px;line-height:1}
+.pflow-step b{color:var(--ink);font-size:15.5px;font-weight:700;line-height:1.35}
+.pflow-arrow{display:flex;align-items:center;color:var(--green);font-size:22px;font-weight:800;flex:0 0 auto}
+@media(max-width:860px){
+  .pflow-steps{flex-direction:column;align-items:center}
+  .pflow-step{max-width:340px;width:100%}
+  .pflow-arrow{transform:rotate(90deg)}
+}
+
 /* ---- spec table ---- */
 .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
 table.spec{width:100%;border-collapse:collapse;font-size:15px;background:#fff}
