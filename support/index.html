@@ -48,7 +48,7 @@
       <div><label><span lang="ko">연락처 *</span><span lang="en">Phone *</span></label><input name="phone" required placeholder="010-0000-0000"></div>
     </div>
     <div class="row">
-      <div><label><span lang="ko">이메일</span><span lang="en">Email</span></label><input name="email" type="email" placeholder="you@example.com"></div>
+      <div><label><span lang="ko">이메일 *</span><span lang="en">Email *</span></label><input name="email" type="text" inputmode="email" autocomplete="email" required placeholder="you@example.com"></div>
       <div><label><span lang="ko">문의 유형</span><span lang="en">Inquiry Type</span></label>
         <select name="type">
           <option data-en="Quote request">견적 문의</option>
@@ -103,6 +103,14 @@
 <script>
 function gateSubmit(e){
   var f=e.target;
+  var em=f.querySelector('[name="email"]');
+  var ev=em?em.value.trim():"";
+  if(ev && ev.indexOf('@')===-1){
+    e.preventDefault();
+    alert(document.documentElement.lang==='en'?"Please enter a valid email address (it must include '@').":"이메일 주소를 올바르게 입력해 주세요. ('@'가 포함되어야 합니다.)");
+    if(em) em.focus();
+    return false;
+  }
   var el=f.querySelector('[name="cf-turnstile-response"]');
   var token=(window.turnstile&&turnstile.getResponse())||(el&&el.value)||"";
   if(!token){ e.preventDefault(); alert(document.documentElement.lang==='en'?"Please complete the security check (human verification), then click again.":"보안 확인(사람인지 검증)을 완료한 뒤 다시 눌러 주세요."); return false; }
