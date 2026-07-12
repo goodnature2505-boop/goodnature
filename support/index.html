@@ -45,7 +45,7 @@
     <input type="hidden" name="_next" value="https://goodnature.uk/thanks/">
     <div class="row">
       <div><label><span lang="ko">회사/성명 *</span><span lang="en">Company / Name *</span></label><input name="name" required></div>
-      <div><label><span lang="ko">연락처 *</span><span lang="en">Phone *</span></label><input name="phone" required placeholder="010-0000-0000"></div>
+      <div><label><span lang="ko">연락처 *</span><span lang="en">Phone *</span></label><input name="phone" type="text" inputmode="numeric" required placeholder="01012345678" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
     </div>
     <div class="row">
       <div><label><span lang="ko">이메일 *</span><span lang="en">Email *</span></label><input name="email" type="text" inputmode="email" autocomplete="email" required placeholder="you@example.com"></div>
