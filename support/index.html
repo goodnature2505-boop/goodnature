@@ -38,11 +38,8 @@
   <div class="sec-head"><span class="tag">Contact</span><h2><span lang="ko">견적 · 문의</span><span lang="en">Quote · Inquiry</span></h2>
     <p><span lang="ko">양식을 작성하고 전송하시면 담당자 이메일로 바로 접수됩니다. 또는 <a href="mailto:goodnature@goodnature.uk" style="color:var(--green-d)">goodnature@goodnature.uk</a> 로 직접 문의해 주세요.</span><span lang="en">Fill out and submit the form and it goes straight to our team's inbox. Or contact us directly at <a href="mailto:goodnature@goodnature.uk" style="color:var(--green-d)">goodnature@goodnature.uk</a>.</span></p>
   </div>
-  <form class="form" id="inquiry" action="https://formsubmit.co/goodnature@goodnature.uk" method="POST" onsubmit="return gateSubmit(event)">
-    <input type="hidden" name="_subject" value="[GoodNature 홈페이지 문의]">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://goodnature.uk/thanks/">
+  <form class="form" id="inquiry" action="https://script.google.com/macros/s/AKfycbw_FHdmeJ7OGwdHXY1U_f6hSgw0jCmyZ2Yw8rkke0e3o-STFbf_mm9YIORD72Thu1tTKA/exec" method="POST" onsubmit="return gateSubmit(event)">
+    <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <div class="row">
       <div><label><span lang="ko">회사/성명 *</span><span lang="en">Company / Name *</span></label><input name="name" required></div>
       <div><label><span lang="ko">연락처 *</span><span lang="en">Phone *</span></label><input name="phone" id="phone" type="tel" inputmode="tel" required placeholder="010-1234-5678" data-ph-en="e.g. +82 10-1234-5678"></div>
@@ -101,23 +98,29 @@
 <script src="/nav.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
+var EXEC_URL="https://script.google.com/macros/s/AKfycbw_FHdmeJ7OGwdHXY1U_f6hSgw0jCmyZ2Yw8rkke0e3o-STFbf_mm9YIORD72Thu1tTKA/exec";
 function gateSubmit(e){
-  var f=e.target;
+  e.preventDefault();
+  var f=e.target, en=document.documentElement.lang==='en';
+  // 이메일 형식 검증
   var em=f.querySelector('[name="email"]');
   var ev=em?em.value.trim():"";
   if(ev && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ev)){
-    e.preventDefault();
-    alert(document.documentElement.lang==='en'?"Please enter a valid email address.":"이메일 주소를 올바르게 입력해 주세요.");
-    if(em) em.focus();
-    return false;
+    alert(en?"Please enter a valid email address.":"이메일 주소를 올바르게 입력해 주세요.");
+    if(em) em.focus(); return false;
   }
+  // Turnstile 사람확인
   var el=f.querySelector('[name="cf-turnstile-response"]');
   var token=(window.turnstile&&turnstile.getResponse())||(el&&el.value)||"";
-  if(!token){ e.preventDefault(); alert(document.documentElement.lang==='en'?"Please complete the security check (human verification), then click again.":"보안 확인(사람인지 검증)을 완료한 뒤 다시 눌러 주세요."); return false; }
-  if(el) el.disabled=true; // 이메일에 토큰 텍스트 안 담기게
+  if(!token){ alert(en?"Please complete the security check (human verification), then click again.":"보안 확인(사람인지 검증)을 완료한 뒤 다시 눌러 주세요."); return false; }
+  // 전송중 표시
   var b=document.getElementById('sendBtn');
-  if(b){ b.classList.add('loading'); b.innerHTML=document.documentElement.lang==='en'?'<span class="spinner"></span>Sending...':'<span class="spinner"></span>전송 중...'; }
-  return true; // FormSubmit으로 실제 POST 전송
+  if(b){ b.classList.add('loading'); b.disabled=true; b.innerHTML=en?'<span class="spinner"></span>Sending...':'<span class="spinner"></span>전송 중...'; }
+  // Apps Script로 전송(no-cors) 후 완료 페이지로
+  fetch(EXEC_URL,{method:'POST',mode:'no-cors',body:new URLSearchParams(new FormData(f))})
+    .then(function(){ window.location.href='/thanks/'; })
+    .catch(function(){ window.location.href='/thanks/'; });
+  return false;
 }
 // 연락처: 한국어=라이브 하이픈 / 그 외=자유입력 (client_inquiry_form_pattern 표준)
 (function(){

@@ -4,9 +4,9 @@
 
   - goodnature.uk/support 폼이 POST로 접수
   - Cloudflare Turnstile 서버검증(스크립트 속성 TURNSTILE_SECRET 있을 때만)
-  - 연락처: 숫자만 저장 + '연락처' 컬럼을 텍스트서식(@)으로 → 앞자리 0 보존
-  - 하이픈(010-1234-5678)은 시트 H열 ARRAYFORMULA가 자동생성
-  - 담당자 메일 알림(replyTo=문의자 이메일)
+  - 연락처: 폼이 이미 하이픈 포맷 → 시트엔 앞 ' 붙여 텍스트로 저장(앞0 보존 + +82 수식오류 방지)
+  - 알림메일: 보내는=GoodNature(goodnature@goodnature.uk 별칭), 받는=goodnature2505@gmail.com
+    제목 말머리 [GoodNature #0001] 자동증가, replyTo=문의자 이메일 (Brevo 연동 전까지 MailApp)
 
   배포: 저장 → 배포 → 새 배포 → 웹 앱
         · 실행 계정 = 나(goodnature2505)
@@ -17,8 +17,9 @@
 
 var SHEET_ID   = '1DAH1nwYUtxUe-K1m5nYqsWZIVf9YP_YhMV05zCbwRdY';
 var SHEET_NAME = 'responses';
-var NOTIFY_TO  = 'goodnature@goodnature.uk';
-var SUBJECT    = '[GoodNature 홈페이지 문의]';
+var NOTIFY_TO  = 'goodnature2505@gmail.com';   // 받는 주소(현재. Brevo 연동 전)
+var SEND_AS    = 'goodnature@goodnature.uk';   // 보내는 주소(send-as 별칭 등록돼 있으면 사용)
+var SUBJECT    = '홈페이지 문의';  // 실제 제목 = [GoodNature #0001] + 이 문구
 
 var HEADERS = ['타임스탬프','회사/성명','연락처','이메일','문의유형','처리대상/물량','문의내용'];
 
@@ -47,7 +48,9 @@ function doPost(e){
     ];
     sh.appendRow(row);
 
-    _notify_(row);
+    // 말머리 티켓번호 = 데이터 행번호(헤더 제외). 4자리 제로패딩(10000+ 자동 5자리)
+    var ticket = Utilities.formatString('%04d', Math.max(1, sh.getLastRow() - 1));
+    _notify_(row, ticket);
     return _ok();
   }catch(err){
     return _fail(String(err));
@@ -82,10 +85,10 @@ function verifyTurnstile_(secret, token){
   }catch(e){ return false; }
 }
 
-function _notify_(row){
+function _notify_(row, ticket){
   try{
     var body =
-      '새 문의가 접수되었습니다.\n\n' +
+      '새 문의가 접수되었습니다. (접수번호 #' + ticket + ')\n\n' +
       '· 회사/성명 : ' + row[1] + '\n' +
       '· 연락처    : ' + String(row[2]).replace(/^'/,'') + '\n' +
       '· 이메일    : ' + row[3] + '\n' +
@@ -93,12 +96,16 @@ function _notify_(row){
       '· 처리대상/물량 : ' + row[5] + '\n' +
       '· 문의내용  :\n' + row[6] + '\n\n' +
       '접수시각 : ' + row[0];
-    MailApp.sendEmail({
+    var opts = {
       to: NOTIFY_TO,
-      subject: SUBJECT,
+      subject: '[GoodNature #' + ticket + '] ' + SUBJECT,
       body: body,
+      name: 'GoodNature',
       replyTo: (row[3] || NOTIFY_TO)
-    });
+    };
+    // goodnature@goodnature.uk 가 Gmail send-as 별칭으로 등록돼 있으면 그 주소로 발신
+    try{ if (GmailApp.getAliases().indexOf(SEND_AS) !== -1) opts.from = SEND_AS; }catch(e){}
+    MailApp.sendEmail(opts);
   }catch(e){ /* 메일 실패해도 시트 접수는 유지 */ }
 }
 
