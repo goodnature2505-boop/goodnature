@@ -45,7 +45,7 @@
     <input type="hidden" name="_next" value="https://goodnature.uk/thanks/">
     <div class="row">
       <div><label><span lang="ko">회사/성명 *</span><span lang="en">Company / Name *</span></label><input name="name" required></div>
-      <div><label><span lang="ko">연락처 *</span><span lang="en">Phone *</span></label><input name="phone" type="text" inputmode="numeric" required placeholder="01012345678" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
+      <div><label><span lang="ko">연락처 *</span><span lang="en">Phone *</span></label><input name="phone" id="phone" type="tel" inputmode="tel" required placeholder="010-1234-5678" data-ph-en="e.g. +82 10-1234-5678"></div>
     </div>
     <div class="row">
       <div><label><span lang="ko">이메일 *</span><span lang="en">Email *</span></label><input name="email" type="text" inputmode="email" autocomplete="email" required placeholder="you@example.com"></div>
@@ -105,9 +105,9 @@ function gateSubmit(e){
   var f=e.target;
   var em=f.querySelector('[name="email"]');
   var ev=em?em.value.trim():"";
-  if(ev && ev.indexOf('@')===-1){
+  if(ev && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ev)){
     e.preventDefault();
-    alert(document.documentElement.lang==='en'?"Please enter a valid email address (it must include '@').":"이메일 주소를 올바르게 입력해 주세요. ('@'가 포함되어야 합니다.)");
+    alert(document.documentElement.lang==='en'?"Please enter a valid email address.":"이메일 주소를 올바르게 입력해 주세요.");
     if(em) em.focus();
     return false;
   }
@@ -119,6 +119,20 @@ function gateSubmit(e){
   if(b){ b.classList.add('loading'); b.innerHTML=document.documentElement.lang==='en'?'<span class="spinner"></span>Sending...':'<span class="spinner"></span>전송 중...'; }
   return true; // FormSubmit으로 실제 POST 전송
 }
+// 연락처: 한국어=라이브 하이픈 / 그 외=자유입력 (client_inquiry_form_pattern 표준)
+(function(){
+  var ph=document.getElementById('phone');
+  if(!ph) return;
+  function fmtKo(v){
+    var d=v.replace(/[^0-9]/g,"").slice(0,11);
+    if(d.slice(0,2)==="02") return d.length<=2?d:d.length<=5?d.slice(0,2)+"-"+d.slice(2):d.length<=9?d.slice(0,2)+"-"+d.slice(2,5)+"-"+d.slice(5):d.slice(0,2)+"-"+d.slice(2,6)+"-"+d.slice(6);
+    return d.length<=3?d:d.length<=7?d.slice(0,3)+"-"+d.slice(3):d.slice(0,3)+"-"+d.slice(3,7)+"-"+d.slice(7);
+  }
+  ph.addEventListener('input',function(){
+    var ko=document.documentElement.lang!=='en';
+    ph.value = ko ? fmtKo(ph.value) : ph.value.replace(/[^0-9+\-\s()]/g,"");
+  });
+})();
 </script>
 </body>
 </html>
