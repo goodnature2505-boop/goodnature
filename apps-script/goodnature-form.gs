@@ -6,7 +6,7 @@
   - Cloudflare Turnstile 서버검증(스크립트 속성 TURNSTILE_SECRET 있을 때만)
   - 연락처: 폼이 이미 하이픈 포맷 → 시트엔 앞 ' 붙여 텍스트로 저장(앞0 보존 + +82 수식오류 방지)
   - 알림메일: Brevo REST 발송(스크립트속성 BREVO_API_KEY = xkeysib- 키). 보내는=GoodNature<goodnature2505@gmail.com>,
-    받는=goodnature2505@gmail.com, replyTo=문의자, 제목 말머리 [GoodNature #0001] 자동증가.
+    받는=goodnature@goodnature.uk(도메인, 답장시 자동 From=도메인), replyTo=문의자, 제목 말머리 [GoodNature #0001].
     (BREVO_API_KEY 미설정 시 MailApp 폴백)
 
   배포: 저장 → 배포 → 새 배포 → 웹 앱
@@ -18,7 +18,7 @@
 
 var SHEET_ID   = '1DAH1nwYUtxUe-K1m5nYqsWZIVf9YP_YhMV05zCbwRdY';
 var SHEET_NAME = 'responses';
-var NOTIFY_TO    = 'goodnature2505@gmail.com';   // 알림 받는 주소
+var NOTIFY_TO    = 'goodnature@goodnature.uk';   // 알림 받는 주소(도메인). Cloudflare 라우팅→gmail, 답장시 From=이 주소
 var SENDER_EMAIL = 'goodnature2505@gmail.com';   // Brevo Senders에 Verified 된 발신 주소
 var SEND_AS      = 'goodnature@goodnature.uk';   // (MailApp 폴백용) send-as 별칭 있으면 사용
 var SUBJECT      = '홈페이지 문의';  // 실제 제목 = [GoodNature #0001] + 이 문구
