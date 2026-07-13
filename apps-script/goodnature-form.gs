@@ -5,8 +5,9 @@
   - goodnature.uk/support 폼이 POST로 접수
   - Cloudflare Turnstile 서버검증(스크립트 속성 TURNSTILE_SECRET 있을 때만)
   - 연락처: 폼이 이미 하이픈 포맷 → 시트엔 앞 ' 붙여 텍스트로 저장(앞0 보존 + +82 수식오류 방지)
-  - 알림메일: 보내는=GoodNature(goodnature@goodnature.uk 별칭), 받는=goodnature2505@gmail.com
-    제목 말머리 [GoodNature #0001] 자동증가, replyTo=문의자 이메일 (Brevo 연동 전까지 MailApp)
+  - 알림메일: Brevo REST 발송(스크립트속성 BREVO_API_KEY = xkeysib- 키). 보내는=GoodNature<goodnature2505@gmail.com>,
+    받는=goodnature2505@gmail.com, replyTo=문의자, 제목 말머리 [GoodNature #0001] 자동증가.
+    (BREVO_API_KEY 미설정 시 MailApp 폴백)
 
   배포: 저장 → 배포 → 새 배포 → 웹 앱
         · 실행 계정 = 나(goodnature2505)
@@ -17,9 +18,11 @@
 
 var SHEET_ID   = '1DAH1nwYUtxUe-K1m5nYqsWZIVf9YP_YhMV05zCbwRdY';
 var SHEET_NAME = 'responses';
-var NOTIFY_TO  = 'goodnature2505@gmail.com';   // 받는 주소(현재. Brevo 연동 전)
-var SEND_AS    = 'goodnature@goodnature.uk';   // 보내는 주소(send-as 별칭 등록돼 있으면 사용)
-var SUBJECT    = '홈페이지 문의';  // 실제 제목 = [GoodNature #0001] + 이 문구
+var NOTIFY_TO    = 'goodnature2505@gmail.com';   // 알림 받는 주소
+var SENDER_EMAIL = 'goodnature2505@gmail.com';   // Brevo Senders에 Verified 된 발신 주소
+var SEND_AS      = 'goodnature@goodnature.uk';   // (MailApp 폴백용) send-as 별칭 있으면 사용
+var SUBJECT      = '홈페이지 문의';  // 실제 제목 = [GoodNature #0001] + 이 문구
+// ⚠ Brevo API 키(xkeysib-...)는 코드에 넣지 말 것 → 스크립트 속성 BREVO_API_KEY 에 저장(공개 repo 보호)
 
 var HEADERS = ['타임스탬프','회사/성명','연락처','이메일','문의유형','처리대상/물량','문의내용'];
 
@@ -86,24 +89,43 @@ function verifyTurnstile_(secret, token){
 }
 
 function _notify_(row, ticket){
+  var subject = '[GoodNature #' + ticket + '] ' + SUBJECT;
+  var body =
+    '새 문의가 접수되었습니다. (접수번호 #' + ticket + ')\n\n' +
+    '· 회사/성명 : ' + row[1] + '\n' +
+    '· 연락처    : ' + String(row[2]).replace(/^'/,'') + '\n' +
+    '· 이메일    : ' + row[3] + '\n' +
+    '· 문의유형  : ' + row[4] + '\n' +
+    '· 처리대상/물량 : ' + row[5] + '\n' +
+    '· 문의내용  :\n' + row[6] + '\n\n' +
+    '접수시각 : ' + row[0];
+  // replyTo = 문의자 이메일(형식 유효할 때만), 아니면 받는주소
+  var replyEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(row[3])) ? row[3] : NOTIFY_TO;
+
+  // 1) Brevo REST (스크립트속성 BREVO_API_KEY 있으면)
+  var key = PropertiesService.getScriptProperties().getProperty('BREVO_API_KEY');
+  if (key){
+    try{
+      UrlFetchApp.fetch('https://api.brevo.com/v3/smtp/email', {
+        method:'post',
+        contentType:'application/json',
+        headers:{ 'api-key': key, 'accept':'application/json' },
+        muteHttpExceptions:true,
+        payload: JSON.stringify({
+          sender:  { name:'GoodNature', email: SENDER_EMAIL },
+          to:      [{ email: NOTIFY_TO }],
+          replyTo: { email: replyEmail },
+          subject: subject,
+          textContent: body
+        })
+      });
+      return;
+    }catch(e){ /* Brevo 실패 → MailApp 폴백 */ }
+  }
+
+  // 2) 폴백: MailApp
   try{
-    var body =
-      '새 문의가 접수되었습니다. (접수번호 #' + ticket + ')\n\n' +
-      '· 회사/성명 : ' + row[1] + '\n' +
-      '· 연락처    : ' + String(row[2]).replace(/^'/,'') + '\n' +
-      '· 이메일    : ' + row[3] + '\n' +
-      '· 문의유형  : ' + row[4] + '\n' +
-      '· 처리대상/물량 : ' + row[5] + '\n' +
-      '· 문의내용  :\n' + row[6] + '\n\n' +
-      '접수시각 : ' + row[0];
-    var opts = {
-      to: NOTIFY_TO,
-      subject: '[GoodNature #' + ticket + '] ' + SUBJECT,
-      body: body,
-      name: 'GoodNature',
-      replyTo: (row[3] || NOTIFY_TO)
-    };
-    // goodnature@goodnature.uk 가 Gmail send-as 별칭으로 등록돼 있으면 그 주소로 발신
+    var opts = { to: NOTIFY_TO, subject: subject, body: body, name:'GoodNature', replyTo: replyEmail };
     try{ if (GmailApp.getAliases().indexOf(SEND_AS) !== -1) opts.from = SEND_AS; }catch(e){}
     MailApp.sendEmail(opts);
   }catch(e){ /* 메일 실패해도 시트 접수는 유지 */ }
