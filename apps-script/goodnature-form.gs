@@ -101,6 +101,7 @@ function _notify_(row, ticket){
     '접수시각 : ' + row[0];
   // replyTo = 문의자 이메일(형식 유효할 때만), 아니면 받는주소
   var replyEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(row[3])) ? row[3] : NOTIFY_TO;
+  var html = _esc_(body).replace(/\n/g,'<br>');  // 줄바꿈 보장 + 사용자입력 이스케이프(HTML 인젝션 방지)
 
   // 1) Brevo REST (스크립트속성 BREVO_API_KEY 있으면)
   var key = PropertiesService.getScriptProperties().getProperty('BREVO_API_KEY');
@@ -116,6 +117,7 @@ function _notify_(row, ticket){
           to:      [{ email: NOTIFY_TO }],
           replyTo: { email: replyEmail },
           subject: subject,
+          htmlContent: html,
           textContent: body
         })
       });
@@ -131,5 +133,6 @@ function _notify_(row, ticket){
   }catch(e){ /* 메일 실패해도 시트 접수는 유지 */ }
 }
 
+function _esc_(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function _ok(){  return ContentService.createTextOutput(JSON.stringify({result:'ok'})).setMimeType(ContentService.MimeType.JSON); }
 function _fail(m){ return ContentService.createTextOutput(JSON.stringify({result:'error',error:String(m)})).setMimeType(ContentService.MimeType.JSON); }
