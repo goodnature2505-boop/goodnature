@@ -101,7 +101,9 @@ function _notify_(row, ticket){
     '접수시각 : ' + row[0];
   // replyTo = 문의자 이메일(형식 유효할 때만), 아니면 받는주소
   var replyEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(row[3])) ? row[3] : NOTIFY_TO;
-  var html = _esc_(body).replace(/\n/g,'<br>');  // 줄바꿈 보장 + 사용자입력 이스케이프(HTML 인젝션 방지)
+  // 큰 글씨(16px)+줄간격, 줄바꿈 보장 + 사용자입력 이스케이프(HTML 인젝션 방지)
+  var html = '<div style="font-size:16px;line-height:1.7;font-family:Apple SD Gothic Neo,Malgun Gothic,sans-serif">'
+           + _esc_(body).replace(/\n/g,'<br>') + '</div>';
 
   // 1) Brevo REST (스크립트속성 BREVO_API_KEY 있으면)
   var key = PropertiesService.getScriptProperties().getProperty('BREVO_API_KEY');
