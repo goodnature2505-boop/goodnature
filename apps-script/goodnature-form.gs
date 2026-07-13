@@ -19,7 +19,7 @@
 var SHEET_ID   = '1DAH1nwYUtxUe-K1m5nYqsWZIVf9YP_YhMV05zCbwRdY';
 var SHEET_NAME = 'responses';
 var NOTIFY_TO    = 'goodnature@goodnature.uk';   // 알림 받는 주소(도메인). Cloudflare 라우팅→gmail, 답장시 From=이 주소
-var SENDER_EMAIL = 'goodnature2505@gmail.com';   // Brevo Senders에 Verified 된 발신 주소
+var SENDER_EMAIL = 'goodnature@goodnature.uk';   // Brevo Verified 발신 주소(도메인 DKIM/DMARC 인증)
 var SEND_AS      = 'goodnature@goodnature.uk';   // (MailApp 폴백용) send-as 별칭 있으면 사용
 var SUBJECT      = '홈페이지 문의';  // 실제 제목 = [GoodNature #0001] + 이 문구
 // ⚠ Brevo API 키(xkeysib-...)는 코드에 넣지 말 것 → 스크립트 속성 BREVO_API_KEY 에 저장(공개 repo 보호)
